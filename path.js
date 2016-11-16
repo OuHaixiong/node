@@ -57,7 +57,7 @@ travel(dir, handleTravel); // 注意：回调函数不能用字符串进行传�
 console.log(arrFilePath);
 
 
-
+// 下面是遍历文件的异步版本（看不太懂）
 function travel(dir, callback, finish) {
     fs.readdir(dir, function (err, files) {
         (function next(i) {
@@ -81,3 +81,4 @@ function travel(dir, callback, finish) {
         }(0));
     });
 }
+
