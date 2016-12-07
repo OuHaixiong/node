@@ -1,5 +1,5 @@
 // 标准化路径
-var path = require('path'); //系统标准路径包
+var path = require('path'); //系统标准路径包（path模块是专门用来处理文件路径的）
 var cache = {};
 
 function store(key, value) { // normalize 标准化路径

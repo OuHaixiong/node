@@ -9,7 +9,7 @@ var fs = require('fs'); // 系统文件处理包
  * @returns string
  */
 function readText(pathname) {
-	var bin = fs.readFileSync(pathname);
+	var bin = fs.readFileSync(pathname); // 同步读取一个文件到一个字符串（sync：同步耗性能一点；没有sync的函数是异步的性能更高）
 	if ((bin[0] === 0xEF) && (bin[1] === 0xBB) && (bin[2] === 0xBF)) {
 		bin = bin.slice(3);
 	}
