@@ -30,16 +30,13 @@ var objUrl = url.parse('http://user:pass@host.com:8080/p/a/t/h?query=string#hash
 var entityUrl = url.parse('/foo/bar?a=b&ni=ma#abc', true, true);
 // 如果第二个参数为true：则query为对象：{ a: 'b', ni: 'ma' }
 // 第三个参数等于true时，该方法可以正确解析不带协议头的URL，例如//www.example.com/foo/bar
-var stringUrl = url.format(entityUrl); // /foo/bar?a=b&ni=ma#abc
-console.log(stringUrl);
+var stringUrl = url.format(entityUrl); // format方法允许将一个URL对象转换为URL字符串
+console.log(stringUrl); // /foo/bar?a=b&ni=ma#abc
 var str = url.resolve('http://www.example.com/foo/bar', '../baz'); // .resolve方法可以用于拼接URL
 console.log(str); // http://www.example.com/baz
 
 var querystring = require('querystring');
 var objQuery = querystring.parse('foo=bar&baz=qux&baz=quux&corege'); // { foo: 'bar', baz: [ 'qux', 'quux' ], corege: '' }
-console.log(objQuery);
-
-
-
-    
-
+console.log(objQuery);// parse：URL参数字符串转对象
+var queryStr = querystring.stringify(objQuery); // stringify 对象转URL参数字符串
+console.log(queryStr); // foo=bar&baz=qux&baz=quux&corege=
