@@ -21,17 +21,19 @@ var util = require('util'); // child_process模块可以创建和控制子进程
 function copy(source, target, callback) {
     child_process.exec(util.format('cp -r %s/* %s', source, target), callback);
 }
-//copy('data', 'ba', function (err) {
-//    console.log(err); // 成功打印null
-//});
+copy('data', 'ba', function (err) {
+    console.log(err); // 成功打印null
+});
 
-process.on('uncaughtException', function (err) {
-    console.log('Error: %s', err.message);
+// 下面捕获未知的异常
+/*process.on('uncaughtException', function (err) {
+    console.log('Error: %s', err.message); // 输出 Error: fn is not a function
+	console.log(err); // 返回数组：[TypeError: fn is not a function]
 });
 
 setTimeout(function (fn) {
     fn();
-});
+});*/
 
 
 

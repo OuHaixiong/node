@@ -50,7 +50,7 @@ function handleTravel(filePath) {
 }
 
 var dir = path.resolve(__dirname, './'); // 等同path.resolve(__dirname)
-dir = path.join(dir, 'afv'); // 拼接路径
+dir = path.join(dir, 'ba'); // 拼接路径
 //console.log(dir); //返回/data/www/nodejs/afv
 travel(dir, handleTravel); // 注意：回调函数不能用字符串进行传，直接传函数名就可以
 // 上面的写法还可以写成： travel(dir, function(filePath) {...});
@@ -58,7 +58,7 @@ console.log(arrFilePath);
 
 
 // 下面是遍历文件的异步版本（看不太懂）
-function travel(dir, callback, finish) {
+/*function travel(dir, callback, finish) {
     fs.readdir(dir, function (err, files) {
         (function next(i) {
             if (i < files.length) {
@@ -80,5 +80,5 @@ function travel(dir, callback, finish) {
             }
         }(0));
     });
-}
+}*/
 
