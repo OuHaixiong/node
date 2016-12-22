@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>练习react 15.4.1 - 2016_12_21</title>
+    <script src="core/react.js"></script>
+    <script src="core/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <div id="test_id"></div>
+    <script type="text/babel"> // 这里的类型一定只能为text/babel；上面的三个js文件也缺一不可
+    // 特别注意了，每个版本的react都会不一样，语法有些差异
+      /*ReactDOM.render( // 将模板转换为html并插入指定的dom节点
+	    <h1>Hello, world!</h1>,
+		document.getElementById('container')
+	  );*/
+	  
+	  var names = ['Jack', 'Tom', '欧阳海雄'];
+
+	/*ReactDOM.render(
+	    <div>
+		{
+		  names.map(function (name) {
+            return (<div>Hello, {name}!</div>);
+		  })
+		}
+	    </div>,
+		document.getElementById('container')
+	  );*/
+      ReactDOM.render(
+	    <div>
+		{
+		  names.map(function (name, index) { // 注意这里一定要用index，且下面一定要用到，且一定为 key={index}
+		    return (<div key={index}>Hello, {name}!</div>);
+		  }) // 这里也不能用逗号,也不能用分号; 
+		}
+		</div>,
+		document.getElementById('container') // 特别注意这里不能用;因为这里是函数的参数
+	  );
+
+    // 下面是组件的写法
+    var Greet = React.createClass({ // 创建一个名为Greet的组件，组件名称首字母必须大写
+        render : function() {
+            return <h1>Hello {this.props.name}</h1>; // 获取当前组件的属性为name的属性值（获取属性的值用的是this.props.属性名）
+        }
+    });
+    ReactDOM.render(
+        <Greet name="欧阳海雄！！！" />, // 使用组件
+        document.getElementById('container')
+    );
+
+    // 下面是组件状态
+    var InputState = React.createClass({
+        getInitialState : function() { // 组件初始化时，执行该方法，且该函数必须返回NULL或一个对象
+            return {'enable' : false};
+        },
+        handleClick : function(event) { // this.state.xxx 组件的属性值
+            this.setState({'enable': !this.state.enable}); // this.setState() 设置组件的属性值
+        }, // 绑定事件。  每次修改以后，自动调用this.render方法，再次渲染组件
+        render : function() {
+            return (
+                <p>
+                  <input type="text" disabled={this.state.enable} />
+                  <button onClick={this.handleClick}>Change State</button>
+                </p>
+            );
+        },
+        componentWillUpdate : function (nextProps, nextState) { // 正在被重新渲染之前调用此函数
+            console.log('即将重新进行渲染');
+            console.log(nextProps); // Object
+        },
+        componentDidUpdate : function (prevProps, prevState) { // 正在被重新渲染之后掉用此函数
+            console.log('已重新渲染完成');
+            console.log(prevState); // Object
+        }
+    });
+    ReactDOM.render(
+        <InputState />,
+        document.getElementById('container')
+    );
+    
+    // 下面再进行组件的多少个事件触发的示例
+    var Hello = React.createClass({
+        getInitialState : function () {
+            return {'opacity': 1.0};
+        },
+        componentDidMount: function () { // 已插入真实DOM之后[组件已加载后]，执行此函数
+            this.timer = setInterval(function() {
+                var opacity = this.state.opacity;
+                opacity -= 0.05; // 这里0.05可以写成 .05
+                if (opacity < 0.1) {
+                    opacity = 1.0;
+                }
+                this.setState({opacity:opacity});
+            }.bind(this), 300); // 每隔300毫秒执行一次
+        },
+        render : function () { // 设置style属性值时一定要用{{}}。 特别注意在return里面不能有任何注释
+            return (
+                <div style={{opacity: this.state.opacity }}> 
+                  Hello {this.props.name}
+                </div>
+            );
+        }
+    });
+    /* ReactDOM.render(
+        <Hello name="world" />,
+        document.getElementById('test_id') // 不能用document.body
+    ); */
+
+    // 下面是组件的复用
+    var Search = React.createClass({
+        render : function () {
+            return (
+                <div>
+                  {this.props.searchType}:<input type="text" />
+                  <button>Search</button>
+                </div>
+            );
+        }
+    });
+    var Page = React.createClass({
+        render : function () {
+            return (
+                <div>
+                  <h1>Welcome!</h1>
+                  <Search searchType="Title" />
+                  <Search searchType="Content" />
+                </div>
+            );
+        }
+    });
+    ReactDOM.render(
+        <Page />,
+        document.getElementById('test_id')
+    );
+    </script>
+
+  </body>
+</html>

@@ -15,3 +15,8 @@ function factorial(n) {
 
 console.log(factorial(5));
 console.log(factorial(6));
+
+function loadScript(abc) {
+    alert('Hello '+abc);
+}
+window.loadScript('ouhaixiong');
