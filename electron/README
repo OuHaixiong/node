@@ -1,0 +1,9 @@
+这里是Electron的学习、练习
+
+1，安装nodejs、npm
+2，安装cnpm：npm install -g cnpm --registry=https://registry.npm.taobao.org
+   安装完后，可以使用命令 cnpm -v／npm -v／node -v 可以查看各版本
+3，安装electron
+# cnpm install electron-prebuilt --save-dev
+4，运行# npm install 安装相应的模块并进行编译，必须模块electron-prebuilt&&electron
+5，运行# npm start 即可打开app界面   [ 在mac中control+c可关闭app] 

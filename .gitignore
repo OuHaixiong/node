@@ -1,4 +1,5 @@
 /.project
-/.settings/org.eclipse.wst.jsdt.ui.superType.name
-/.settings/org.eclipse.wst.jsdt.ui.superType.container
-/.settings/.jsdtscope
+/.settings/
+/.buildpath
+/electron/node_modules
+
