@@ -6,4 +6,6 @@
 3，安装electron
 # cnpm install electron-prebuilt --save-dev [npm install electron --save-dev]
 4，运行# npm install 安装相应的模块并进行编译，必须模块electron-prebuilt&&electron
-5，运行# npm start 即可打开app界面   [ 在mac中control+c可关闭app] 
+5，运行# npm start[实际执行的是./node_modules/.bin/electron .] 即可打开app界面   [ 在mac中control+c可关闭app] 
+
+package.json中的main对应的js为主进程
