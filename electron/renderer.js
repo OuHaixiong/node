@@ -27,4 +27,8 @@ ipcRenderer.once('testIpcFrontEnd', function (eventObj, argumentObj) { // 这里
 });
 // 监听消息[事件]可以使用on或者once，区别是on是一直监听，once只会被触发一次(然后就会自动取消监听)
 
-const shell = require('electron').shell;
+document.getElementById('open_url').addEventListener('click', function () {
+//	const shell = require('electron').shell;
+//	shell.openExternal(`http://maimengmei.com`); // 打开默认浏览器并跳转到指定的网页（该方法也可以在后端运行）
+    ipcRenderer.send('openUrl');
+});

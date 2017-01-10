@@ -74,6 +74,11 @@ function createWindow() { // 创建一个窗口【创建子进程、渲染进程
 //        console.log(eventObj);
     });
     
+    ipcMain.on('openUrl', function () {
+        const shell = require('electron').shell; // shell 是在main线程和渲染线程中均可以使用
+        shell.openExternal(`http://maimengmei.com`); // 打开默认浏览器并跳转到指定的网页（前后台段均可使用）
+    });
+
 }
 
 app.on('ready', createWindow); // 主进程加载时，执行的事件；在基本环境准备好之后的回调
