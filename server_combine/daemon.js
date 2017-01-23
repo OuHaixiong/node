@@ -10,10 +10,11 @@ var worker;
  */
 function spawn(server, config) {
     worker = child_process.spawn('node', [server, config]); // 用nodejs执行一个js文件，即开启一个js文件的进程
-    worker.on('exit', function (code) { // 监控事件，如果worker已经退出，就执行如下程序
+    worker.on('exit', function (code, error) { // 监控事件，如果worker已经退出，就执行如下程序
 	if (code !== 0) {
             spawn(server, config);
 	}
+	// 如果异常退出code不为0，error为SIGSEGV
     });
 }
 
