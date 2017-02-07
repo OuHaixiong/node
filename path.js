@@ -48,7 +48,7 @@ function handleTravel(filePath) {
 	arrFilePath[num] = filePath;
 	num++;
 }
-
+// __dirname 获取当前执行脚步所在的绝对目录（最后不包含/）
 var dir = path.resolve(__dirname, './'); // 等同path.resolve(__dirname)
 dir = path.join(dir, 'ba'); // 拼接路径
 //console.log(dir); //返回/data/www/nodejs/afv
