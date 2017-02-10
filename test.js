@@ -41,3 +41,12 @@ for(var i=0; i<length; i++) {
     console.log(RegExp.$2);
     console.log(RegExp.$3);
 }
+
+// 下面通过npm install --save-dev os-locale安装后，获取操作系统语言
+const osLocale = require('os-locale');
+osLocale().then(locale => {
+    console.log(locale); // en_US | zh_CN
+});
+
+
+
