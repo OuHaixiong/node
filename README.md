@@ -2,8 +2,8 @@
 node.js 学习积累 ； 2015-5-12创建
 
 
-全局安装模块：npm install XXX -g
-本目录下安装模块并保存入依赖包配置：npm install XXX --sava/-save-dev  save会修改package.json的dependencies;--save-dev会修改devDependencies
+全局安装模块：npm install XXX -g[global]
+本目录下安装模块并保存入依赖包配置：npm install XXX --sava[-S]/-save-dev[-D]  save会修改package.json的dependencies;--save-dev会修改devDependencies
 运行时需要用到的包使用--save[产品、线上]，否则只是测试使用时用--save-dev[开发、线下]
 
 
@@ -23,5 +23,12 @@ nodejs 前段调试 [适用mBlock项目]
 2，选中webview标签，在控制台[Console]输入命令：$0.openDevTools() , 即可打开一个新的调试工具界面
 3，在Sources选项下面的Sources中可以找到file://，在这里可以找到对应目录下到js文件
 4，单击打开js文件，即可在相应到位置加入断点，点击前段到页面即可进行调试
+
+npm config list 可查看npm的安装信息
+npm -h 查看npm的用户手册
+npm init 初始化项目，其实就是package.json的创建(-y不会出现交互界面)
+npm dist-tags ls react 查看react发布过哪些tag
+npm update 更新所有可更新的包
+npm updata electron-builder 更新electron-builder包
 
  

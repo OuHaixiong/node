@@ -2,4 +2,6 @@
 /.settings/
 /.buildpath
 /electron/node_modules
-
+/webpack/node_modules
+/antDesign/node_modules
+/node_modules
