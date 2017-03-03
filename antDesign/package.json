@@ -1,0 +1,14 @@
+{
+  "name": "test_antdesign",
+  "version": "1.0.0",
+  "description": "学习antDesign",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bear",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^2.7.2"
+  }
+}
