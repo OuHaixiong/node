@@ -1,13 +1,5 @@
-这里是webpack的学习
-
-1，安装webpack
-# npm install --save-dev webpack
-
-2，可以在package.json中的scripts中增加
-"build" : "webpack" // 相当于把npm run build命令指向webpack
-
-3，配置热加载
-在.babelrc中需要加入
+{
+    "presets" : ["react", "es2015"],
     "env" : {
         "development" : {
             "plugins" : [
@@ -22,3 +14,4 @@
             ]
         }
     }
+}
