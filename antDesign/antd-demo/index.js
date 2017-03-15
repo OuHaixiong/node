@@ -5,6 +5,10 @@ import {Button} from 'antd'; // 按钮需引入
 //import {Modal,Button} from 'antd'; // 这样写是错误的，在同一个页面不能重复引用同一模块
 import {Modal} from 'antd'; // 对话框需引入
 
+import { Menu, Icon } from 'antd'; // 菜单和子菜单需要用到的
+const SubMenu = Menu.SubMenu; // 菜单和子菜单需要用到的
+const MenuItemGroup = Menu.ItemGroup; // 菜单和子菜单需要用到的
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -86,3 +90,55 @@ function  customNotification() {
 }
 ReactDOM.render(<Button onClick={customNotification}>customNotification定制化信息提示框</Button>, document.getElementById('custom_notification'));
 
+
+
+// 下面是菜单和子菜单的使用
+class Sider extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+		    'selectKey': '6',
+		};
+    }
+
+  handleClick = (e) => {
+    console.log('click ', e);
+  }
+  render() {// defaultSelectedKeys={['3']}
+    return (
+      <Menu
+        onClick={this.handleClick}
+        style={{ width: 240 }}
+        selectedKeys={[this.state.selectKey]}
+        defaultOpenKeys={['sub2']}
+        mode="inline"
+      >
+        <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
+          <MenuItemGroup key="g1" title="Item 1">
+            <Menu.Item key="1">Option 1</Menu.Item>
+            <Menu.Item key="2">Option 2</Menu.Item>
+          </MenuItemGroup>
+          <MenuItemGroup key="g2" title="Item 2">
+            <Menu.Item key="3">Option 3</Menu.Item>
+            <Menu.Item key="4">Option 4</Menu.Item>
+          </MenuItemGroup>
+        </SubMenu>
+        <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
+          <Menu.Item key="5">Option 5</Menu.Item>
+          <Menu.Item key="6">Option 6</Menu.Item>
+          <SubMenu key="sub3" title="Submenu">
+            <Menu.Item key="7">Option 7</Menu.Item>
+            <Menu.Item key="8">Option 8</Menu.Item>
+          </SubMenu>
+        </SubMenu>
+        <SubMenu key="sub4" title={<span><Icon type="setting" /><span>Navigation Three</span></span>}>
+          <Menu.Item key="9">Option 9</Menu.Item>
+          <Menu.Item key="10">Option 10</Menu.Item>
+          <Menu.Item key="11">Option 11</Menu.Item>
+          <Menu.Item key="12">Option 12</Menu.Item>
+        </SubMenu>
+      </Menu>
+    );
+  }
+}
+ReactDOM.render(<Sider />,  document.getElementById('menu_submenu'));
