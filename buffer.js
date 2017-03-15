@@ -24,7 +24,7 @@ console.log(bBuffer); // <Buffer 48 65 6c 6c 6f>
 // Buffer(数据块)将JS的数据处理能力从字符串扩展到了任意二进制数据
 
 // 下面读取一个文件的数据流，并进行处理，并在处理数据前暂停数据读取，并在处理数据后继续读取数据
-var fs = require('fs');
+/*var fs = require('fs');
 var resource = fs.createReadStream('./http_hello.js');
 var doSomething = function (str) {
 	console.log(str); // 这里读出来的全是数据块
@@ -37,4 +37,27 @@ resource.on('data', function (chunk) {
 });
 resource.on('end', function() {
 	cleanUp();
-});
+});*/
+
+// buffer转数组
+var arr = [];
+console.log('buffer is:', buffer);
+var length = buffer.length;
+for(var i=0; i<length; i++) {
+	arr[i] = buffer[i];
+}
+console.log(arr); // 这里返回： [ 104, 101, 101, 108, 111 ]
+
+var string = '';
+length = arr.length;
+for (var i =0; i<length; i++) {
+//	var code = str.charCodeAt(); // str.charCodeAt(); 字符转ascii码
+	string += String.fromCharCode(arr[i]); // String.fromCharCode(XXX); ascii码砖字符 
+}
+console.log(string);
+//console.log(String.fromCharCode(buffer)); // 其实这个是不行的，buffer需要转字符串是很容易的，如下：
+console.log(buffer.toString('utf-8'));
+
+
+
+
