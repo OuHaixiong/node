@@ -1,0 +1,18 @@
+{
+  "name": "redux-study",
+  "version": "1.0.0",
+  "description": "This is a redux study",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bear",
+  "license": "ISC",
+  "dependencies": {
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.3.2"
+  }
+}
