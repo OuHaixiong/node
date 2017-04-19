@@ -5,7 +5,36 @@ node.js 学习积累 ； 2015-5-12创建
 全局安装模块：npm install XXX -g[global]
 本目录下安装模块并保存入依赖包配置：npm install XXX --sava[-S]/-save-dev[-D]  save会修改package.json的dependencies;--save-dev会修改devDependencies
 运行时需要用到的包使用--save[产品、线上]，否则只是测试使用时用--save-dev[开发、线下]
+如果需要安装指定版本的包时：npm install XXX@6.5.6
+npm -h[help] 查看npm的帮助 
+使用npm help <command>可查看某条命令的详细帮助，例如npm help install。
+使用npm update <package>可以把当前目录下node_modules子目录里边的对应模块更新至最新版本。
+使用npm update <package> -g可以把全局安装的对应命令行程序更新至最新版
+使用npm cache clear可以清空NPM本地缓存，用于对付使用相同版本号发布新版本代码的人。
+使用npm unpublish <package>@<version>可以撤销发布自己发布过的某个版本代码。
 
+
+下面是发布npm包：
+1，注册一个账号：npm adduser,之后按照提示做即可。
+2，编辑package.json文件，package.json里必要的字段如下：
+{
+    "name": "node-echo",           # 包名，在NPM服务器上须要保持唯一
+    "version": "1.0.0",            # 当前版本号
+    "dependencies": {              # 第三方包依赖，需要指定包名和版本号
+        "argv": "0.0.2"            # 也可以写成："argv":"0.0.x" 表示依赖于0.0.x系列的最新版argv
+      },
+    "main": "./lib/echo.js",       # 入口模块位置
+    "bin" : {
+        "node-echo": "./bin/node-echo"      # 命令行程序名和主模块位置
+    }
+}
+3，发布代码：npm publish
+
+
+语义版本号分为X.Y.Z三位，分别代表主版本号、次版本号和补丁版本号。当代码变更时，版本号按以下原则更新。
+如果只是修复bug，需要更新Z位。
+如果是新增了功能，但是向下兼容，需要更新Y位。
+如果有大变动，向下不兼容，需要更新X位。
 
 
 
