@@ -91,7 +91,7 @@
         getInitialState : function () {
             return {'opacity': 1.0, 'color':'#F00'};
         },
-        componentDidMount: function () { // 已插入真实DOM之后[组件已加载后]，执行此函数
+        componentDidMount: function () { // 已插入真实DOM之后[组件已加载后]，执行此函数。特别注意只会执行一次
             this.timer = setInterval(function() {
                 var opacity = this.state.opacity;
                 opacity -= 0.05; // 这里0.05可以写成 .05

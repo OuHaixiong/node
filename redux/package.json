@@ -9,8 +9,10 @@
   "author": "Bear",
   "license": "ISC",
   "dependencies": {
-    "react-redux": "^5.0.3",
-    "redux": "^3.6.0"
+    "react-redux": "5.0.3",
+    "react": "0.14.9",
+    "react-dom": "0.14.9",
+    "redux": "3.6.0"
   },
   "devDependencies": {
     "redux-devtools": "^3.3.2"

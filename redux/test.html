@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!-- <meta charset="UTF-8" /> -->
+        <title>用最原生态学习redux(Redux basic)</title>
+        <!--<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>-->
+        <script src="redux.min.js"></script>
+    </head>
+    <body>
+        <div>
+            <h4>redux在原生js中的使用</h4>
+            <p><span id="colorEl">Watch my color.</span></p>
+            <button id="red">Red</button>
+            <button id="green">Green</button>
+            <button id="toggle">Toggle</button>
+        </div>
+
+        <script type="text/javascript">
+        var initialState = { // 初始state值（对象）
+            'color' : 'red'
+        };
+
+        function color(state, action) { // 这里是reducer；Reducer是什么，它就是一个纯函数，接收旧的state以及action作为输入参数，返回新的state
+            console.log('is here create store function');
+            if (typeof(state) === 'undefined') {
+                return initialState;
+            }
+            switch (action.type) { // Reducer决定了如何修改state，
+                case 'RED' :
+                    return {'color' : 'red'};
+                    break;
+                case 'GREEN' : 
+                    return {'color' : 'green'};
+                    break;
+                case 'TOGGLE' :
+                    return state.color === 'red' ? {'color' : 'green'} : {'color' : 'red'};
+                    break;
+                default :
+                    return state;
+            }
+            // 关于Reducer请注意：不要修改state的值，请返回一个新的副本；在遇到未知action时，默认情况下一定要返回旧的state；
+
+        }
+        var store = Redux.createStore(color); // 创建一个store。【回调函数名，不能加(),加了就马上运行了。】
+        var colorEl = document.getElementById('colorEl');
+        console.log('store:', store);
+        console.log('store get state:', store.getState());
+        function renderValue() {
+            console.log('start change color');
+            colorEl.style.color = store.getState().color;
+        }
+
+        renderValue();
+        // 注册监听器
+        store.subscribe(renderValue); // 通过store.subscribe方法，传入回调函数名，可以注册监听器，每次state有变化时，都会调用此回调函数
+
+        document.getElementById('red').addEventListener('click', function () { // 不能直接改变state里面的值
+            store.dispatch({ // 通过store.dispatch方法，传入一个action，从而在创建store时传入的回调函数（我们叫它为reducer）中去根据不同的类型改变state里面的状态，每次有新的状态进来时都会触发创建store时的回调函数
+                'type' : 'RED' // action用来描述发生了什么的对象；它并不描述发生的这个事情该怎么去修改state，如何根据action去修改state是Reducer的事情
+            }); // 发生了变红
+        });
+
+        document.getElementById('green').addEventListener('click', function () {
+            store.dispatch({
+                'type' : 'GREEN' // 发生了变绿
+            });
+        });
+        document.getElementById('toggle').addEventListener('click', function () {
+            store.dispatch({
+                'type' : 'TOGGLE' // 发生了切换颜色 ； 通过store.dispatch(action)来触发修改state的操作
+            });
+        });
+        </script>
+
+    </body>
+</html>
+
