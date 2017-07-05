@@ -28,7 +28,7 @@ var createTodoActions = function (text) { // action creator
 };
 
 
-var TodoDemo = React.createClass({ // 创建一个名为Greet的组件，组件名称首字母必须大写
+var TodoDemo = React.createClass({ // 创建一个名为TodoDemo的组件，组件名称首字母必须大写
 	getInitialState : function () {
 		return {
             'items' : store.getState()

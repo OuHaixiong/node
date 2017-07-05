@@ -1,42 +1,60 @@
 
-1，什么是redux？它能给我们带来什么？
+1，什么是redux？
+Redux由Flux演变而来，提供几个简单的API来实现状态管理，所谓状态指的是应用数据，所以，Redux本质上是用来管理数据的。
 redux的官方描述：
 Redux is a predictable state container for JavaScript apps.（Redux 是 JavaScript 状态容器，提供可预测化的状态管理。）
+Redux其实很简单，总结起来就三句话：
+✦ 将整个应用的state储存在唯一的store对象中。
+✦ state只能通过触发action来修改，其中action就是一个描述性的普通对象。
+✦ 使用reducer来描述action如何改变state。
 
-demo
 redux的原理（工作流程见图）
+
 
 2，什么是action、reducer、state和store？
 action:是一个普通的（纯）对象，用来描述应用程序中发生的某件事情（发生了什么变化），它是应用程序中可以用来描述数据变化的唯一角色。
-reducer : 是一个纯函数，用来描述如何更新state。接收旧的 state 和 action，返回新的 state 返回给 store
+reducer : 是一个纯函数，用来描述如何更新state。接收旧的 state 和 action，返回新的 state 给 store
 state ：应用程序的状态（数据）；在Redux中，应用程序只能拥有一个sate，用来保存整个应用程序的状态
 store： 一个Redex的实例就叫做store
 
 
 3，store和state有什么区别？
-store是一个管理者，是一个存放应用程序状态的地方；主要做以下几件事情：
-1) 管理整个应用程序的状态；
+store是一个管理者，是一个存放应用程序状态的地方；相当于是一个容器。主要做以下几件事情：
+1) 管理整个应用程序的状态树；
 2) 可以通过store.getState()来获取应用程序当前的状态；
 3) 通过store.dispatch(action)来更新应用程序的状态；
 4) 可以订阅应用程序状态的改变，来做些view层的改变：
-穿插（连接）整个应用程序
-state是存储在store中的一个对象，用于描述整个应用程序的数据（状态）；
-store维护整个应用程序的状态树
+5）穿插（连接）整个应用程序
+state是存储在store中的一个对象，用于描述整个应用程序的数据（状态）；应用中所有的state都是以一个Object tree的形式存储在唯一一个store中
 
 
 4，什么样的场景适合用redux？什么样的场景不适合用redux？（优、缺点）
 适用
-1）一个页面的数据来源是多个地方，而数据的变化又需要反映在视图层
-
-不使用
+1）一个页面（View）的数据来源是多个地方，而数据的变化又需要反映在视图层
+2）单页应用开发
+3）用户的使用方式复杂
+4）不同身份的用户有不同的使用方式（比如普通用户和管理员）
+5）多个用户之间可以协作
+6）与服务器大量交互，或者使用了WebSocket
+不适用
 1）页面多，且数据量少，数据直接关联少
+2）用户的使用方式非常简单
+3）用户之间没有协作
+4）不需要与服务器大量交互，也没有使用 WebSocket
+5）视图层（View）只从单一来源获取数据
+
+优点：
+单一数据流（单向循环）
+想要改变state的唯一方式是触发一个action，action只用来描述发生了什么，编写reducer来根据action去改变应用的state。
 
 
 注意事项：
 1）不要修改 state。 使用 Object.assign() 新建了一个副本。
 2）在 default 情况下返回旧的 state。遇到未知的 action 时，一定要返回旧的 state。
+3）Action是一个自定义对象，其中type属性是必须的
 
 
+React-Redux 将组件分为两大类，UI组件和容器组件。UI组件只负责UI的呈现，而容器组件用来管理数据和事件。那怎么把交互和UI联系起来呢，那就使用 React-Redux 提供的 connect 方法。
 
-"babel-preset-es2015": "^6.1.18",
-"babel-preset-react": "^6.1.18",
+输入逻辑：外部数据（state对象）转为 UI组件的参数
+输出逻辑：用户发出的动车 （Action对象）从UI组件传递出去
