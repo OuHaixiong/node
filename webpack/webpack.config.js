@@ -1,6 +1,8 @@
+var path = require('path'); // 引入系统模块path
 var webpack = require('webpack'); // 这里一定要引入，因为如果后面的配置有用到该变量时
 // 如：new webpack.BannerPlugin('Copyright Flying Unicorns inc.')
 var extractTextPlugin = require('extract-text-webpack-plugin');
+var copyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = { // __dirname 是node.js中的一个全局变量；它指向当前执行脚本所在的目录
     //devtool : 'cheap-module-eval-source-map', // cheap-module-eval-source-map方法构建速度更快，但是不利于调试，推荐在大型项目考虑da时间成本是使用
@@ -56,6 +58,10 @@ module.exports = { // __dirname 是node.js中的一个全局变量；它指向�
         //new webpack.optimize.OccurenceOrderPlugin(), // 这句报错
         new webpack.optimize.UglifyJsPlugin(),
         //new extractTextPlugin('style.css')
+        new copyWebpackPlugin([ // 拷贝文件插件
+            {from:path.resolve(__dirname, './app/test-origin-copy'), to:path.resolve('build/test-target-copy')} // 默认覆盖拷贝所有的文件和文件夹
+            // 特别注意了，如果是空文件夹[空目录]是不会拷贝过去的
+        ]),
         new extractTextPlugin('[name]-[hash].css') // 文件名是动态生成的
     ],
 
