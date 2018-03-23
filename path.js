@@ -1,9 +1,16 @@
 // 标准化路径
+
+// 抽离路径，即获取文件名或目录名，如下：
+// path.dirname('/foo/bar/baz/asdf/quux.txt'); // ->/foo/bar/baz/asdf 返回目录路径
+// path.basename('/foo/bar/baz/asdf/quux.html')// ->quux.html 返回文件名
+// path.basename('/foo/bar/baz/asdf/quux.html', '.html'); ->quux 去掉指定的后缀名
+// path.extname('/a/b/index.html'); // => '.html' 返回文件后缀名
 var path = require('path'); //系统标准路径包（path模块是专门用来处理文件路径的）
 var cache = {};
 
-function store(key, value) { // normalize 标准化路径
-	cache[path.normalize(key)] = value;
+function store(key, value) { // normalize 标准化(规范化)路径
+    cache[path.normalize(key)] = value;
+    // path.normalize('/foo/bar/nor/faz/..'); -> /foo/bar/nor
 }
 
 store('foo/bar', 1);
@@ -50,6 +57,12 @@ function handleTravel(filePath) {
 }
 // __dirname 获取当前执行脚步所在的绝对目录（最后不包含/）
 var dir = path.resolve(__dirname, './'); // 等同path.resolve(__dirname)
+// resolve是用来解析路径的，即从哪个路径到哪个路径。如下例:
+// path.resolve('/foo/bar', './baz'); ->/foo/bar/baz
+// path.resolve('/foo/bar', '/tmp/file/'); ->/tmp/file
+// 还有种不常用的用法：在两个绝对路径间查找相对路径，如：
+// path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb'); ->../../impl/bbb
+
 dir = path.join(dir, 'ba'); // 拼接路径
 //console.log(dir); //返回/data/www/nodejs/afv
 travel(dir, handleTravel); // 注意：回调函数不能用字符串进行传，直接传函数名就可以
