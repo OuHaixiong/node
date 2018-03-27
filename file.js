@@ -23,3 +23,15 @@ var filePath = path.resolve(__dirname, 'data/abc.txt'); // 后面的参数还可
 //console.log(path.resolve(__dirname, '../')); // 这个返回/data/www。path.resolve([from ...], to)：将参数 to 位置的字符解析到一个绝对路径里（类似php的realpath）
 var contents = readText(filePath);
 console.log(contents);
+
+// 读写文件
+fs.open('/path/xxx/XXX', 'r', function (err, fd) {
+	// todo ...
+    // 第二个参数为操作类型：
+    // r : 只读
+    // r+ : 读写
+    // w : 重写文件
+    // w+ : 重写文件，如果文件不存在则创建
+    // a : 读写文件，在文件末尾追加
+    // a+ : 读写文件，如果文件不存在则创建
+});
