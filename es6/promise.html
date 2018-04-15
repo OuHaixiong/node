@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Promise学习</title>
+  <script>
+    let p1 = new Promise(function (resolve, reject) {
+    // resolve 成功了
+    // reject 失败了
+    // ... 异步处理的一些代码
+    // if (异步处理成功后) {
+      //resolve
+    // } else {
+
+    // } 
+    //resolve(1); 
+    reject(2);
+  });
+  p1.then(function (num) { // 成功时的回调函数
+    alert(num);
+    alert('成功了');
+  }, function(value) { // 失败时的回调函数
+    alert('失败了:' + value);
+  });
+  // 继续.then 后面的 .then 接受的是上一次的.then的返回值
+
+  // 下面用ajax来演示promise的用法
+  function ajax(url, fnSucc, fnFail) {
+    let oAjax = new XMLHttpRequest(); // 练习不考虑兼容性
+    oAjax.open('GET', url, true);
+    oAjax.send();
+    oAjax.onload = function () {
+      if ((oAjax.readyState) == 4 && (oAjax.status == 200)) {
+        fnSucc(oAjax.responseText);
+      } else {
+        fnFail(oAjax.status);
+      }
+    };
+  }
+
+  window.onload = function () {
+    let oBtn = document.getElementById('btn1');
+    let oBox = document.getElementById('box1');
+
+    oBtn.onclick = function () {
+      let p1 = new Promise(function (resolve, reject) {
+        ajax('a.txt', function (str) {
+          resolve(str);
+        }, function (status) {
+          reject(status);
+        });
+      });
+      p1.then(function (str) {
+        oBox.innerHTML = str;
+      }, function (status) {
+        oBox.innerHTML = status;
+      });
+    };
+  };
+  </script>
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <h1></h1>
+  <p>异步数据的传递</p>
+  <p><input id="btn1" type="button" value="点击后台ajax请求" /></p>
+  <div id="box1"></div>
+  <script>
+    // 下面演示promise捕获异常
+    let p2 = new promise(function (resolve, reject) {
+      resolve('OK!!');
+    });
+    p2.then(function (str) {
+      console.log(str);
+      
+    }, function () {
+
+    });
+  </script>
+</body>
+</html>

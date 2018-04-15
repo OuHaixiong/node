@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ES6学习</title>
+  <script>
+  let arr = ['apple', 'banana', 'orange', 'pear'];
+  for (var i in arr) {
+    console.log(i);
+    //console.log(arr[i]);
+  }
+  for (let k of arr) { // for..of..循环数组的每一项值
+    console.log(k); // 返回值：apple,banana...
+  }
+  
+  let json = {'a': 'apple', 'b':'banana', 'p':'pear', 'o':'orange'}
+  for (let k in json) {
+    console.log(k); // 返回key：a\b\p\o
+  }
+  // for (let k of json) { // for..of..不能遍历json对象
+  //   console.log(k);
+  // }
+
+  // 构建map对象(map对象类似json，但并不是，用法也不同)
+  let map = new Map();
+  map.set('a', 'apple');
+  map.set('b', 'banana');
+  console.log(map); // 不能通过map.a进行获取
+  console.log(map.get('a'));
+  //delete map.a; // delete 也不能删除map对象，但可以删除json对象
+  map.delete('a'); // 通过.delete(name)，可以删除map对象
+  console.log(map);
+  map.set('o', 'orange');
+  map.set('p', 'pear');
+  // for (let i in map) { // map对象也不能用for..in循环
+  //   console.log(i);
+  // }
+  for (let i of map.entries()) { // for (let i of map) { 是一个简写 
+    console.log(i); // 返回Array('b', 'banana'); 同时返回了key、value值
+  }
+  for (let [key, value] of map) {
+    console.log(key, value);
+  }
+  for (let key of map.keys()) { // 同样也可以只循环value：map.values()
+    console.log(key);
+  }
+
+  // 下面是箭头函数的练习
+  window.onload = () => {
+    var oBox = document.getElementById('box');
+    oBox.onclick = () => { // 使用箭头函数
+      oBox.style.background = 'red';
+      console.log(this); // 箭头函数中不能用this，this指向window.同样的箭头函数中，不能使用arguments
+    };
+    // oBox.onclick = function () {
+    //   this.style.background = 'red'; // 箭头函数中不能用this，this指向window
+    // };
+  };
+
+  </script>
+  <!-- 下面是模块化的练习 -->
+  <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
+  <script src="https://google.github.io/traceur-compiler/bin/BrowserSystem.js"></script>
+  <script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script>
+  <script type="module">
+    //import moduleA from './a.js';
+    //console.log(moduleA);
+    import moduleSum from './sum.js';
+    console.log(moduleSum());
+  </script>
+
+
+</head>
+
+<body>
+  <h1>这里是ES6的学习目录</h1>
+  <div id="box" style="width:100px;height:100px;background:#CCC"></div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ES6学习</title>
+  <script>
+  // function Person(name, age) {
+  //   this.name = name;
+  //   this.age = age;
+  // }
+  // Person.prototype.showName = function () {
+  //   return this.name;
+  // };
+  // Person.prototype.showAge = function () {
+  //   return this.age;
+  // };
+  // let oPerson = new Person('欧海雄', 35);
+  // alert(oPerson.showAge());
+
+  // es6 中类的写法
+  // class Person {
+  //   constructor (name = '欧阳海雄', age = 0) { // 函数中还有默认值. 给默认值在es6中是函数的功能
+  //     this.name = name;
+  //     this.age = age;
+  //   }
+  //   showName () {
+  //     return this.name;
+  //   }
+  //   showAge() {
+  //     return this.age;
+  //   }
+  // }
+
+  // let p1 = new Person('aaa', 11);
+  // alert(p1.age);
+  // alert(p1.showName());
+  // let p2 = new Person('bbb', 22);
+  // alert(p1.showName == p2.showName); // true
+  // let p3 = new Person();
+  // alert(p3.showName());
+
+  // ES6之前的继承
+  // function Person(name, age) {
+  //   this.name = name;
+  //   this.age = age;
+  // }
+  // Person.prototype.showName = function () {
+  //   return this.name;
+  // };
+  // Person.prototype.showAge = function () {
+  //   return this.age;
+  // };
+  // // 工人 继承人类
+  // function Worker(name, age) {
+  //   Person.apply(this, arguments);
+  // }
+  // Worker.prototype = new Person();
+  // let w1 = new Worker('ddd', 33);
+  //alert(w1.showName());
+
+  // ES6中的继承
+  class Person {
+    constructor (name = '欧阳海雄', age = 0) { // 函数中还有默认值. 给默认值在es6中是函数的功能
+      this.name = name;
+      this.age = age;
+    }
+    showName () {
+      return this.name;
+    }
+    showAge() {
+      return this.age;
+    }
+  }
+  class Worker extends Person {
+    // constructor (name = '欧阳海雄', age = 0, job="") { // 不能覆盖构造函数
+    //   this.name = name;
+    //   this.age = age;
+    //   this.job = job;
+    // }
+    // 其实也是可以覆盖的，覆盖如下写法
+    constructor(name = '欧海雄', age = 0, job = '') {
+      super(name, age);
+      this.job = job;
+    }
+
+    showJob() {
+      return this.job;
+    }
+  }
+  let w2 = new Worker('mmm', 56, '程序员');
+  // alert(w2.showAge());
+  // alert(w2.showName());
+  // alert(w2.showJob());
+
+  class Queue {
+    constructor(content = []) {
+      this._queue = [...content]; // [...XXX] 直接复制数组
+    }
+    shift() {
+      const value = this._queue[0];
+      this._queue.shift();
+      return value;
+    }
+    push(value) {
+      this._queue.push(value);
+      return this._queue.length;
+    }
+  }
+
+  let q = new Queue([1,2,3,4]);
+  console.log(q.shift());
+  console.log(q._queue);
+  console.log(q.push(88));
+  console.log(q._queue);
+
+  // 下面用面向对象写一个简单的选项卡功能
+  class Tab { // 选项卡类
+    constructor(id) {
+      this.oBox = document.getElementById(id);
+      this.aBtn = this.oBox.getElementsByTagName('input');
+      this.aDiv = this.oBox.getElementsByTagName('div');
+      this.iNow = 0;
+      this.init();
+    }
+
+    init() {
+      let length = this.aBtn.length;
+      for (let i=0; i<length; i++) {
+        this.aBtn[i].onclick = function (){
+          this.iNow = i;
+          this.hide();
+          this.show(i);
+        }.bind(this); // 这里的.bind(this)是为了改变function中的this指向(如果不重新指向的话，this指向的是input按钮)
+      }
+    }
+
+    hide() {
+      let length = this.aBtn.length;
+      for (let i=0; i<length; i++) {
+        this.aBtn[i].className = '';
+        this.aDiv[i].style.display = 'none';
+      }
+    }
+
+    show(index) {
+      this.aBtn[index].className = 'at';
+      this.aDiv[index].style.display = 'block';
+    }
+
+  }
+
+  // 下面是自动切换
+  class AutoTab extends Tab {
+    constructor (id) {
+      super(id);
+      setInterval(this.next.bind(this), 1000); // 这里的bind也和上面的一样
+      // 不能写成: this.next().bind(this)
+    }
+
+    next() {
+      this.iNow++;
+      if (this.iNow >= this.aBtn.length) {
+        this.iNow = 0;
+      }
+      this.hide();
+      this.show(this.iNow);
+    }
+  }
+  </script>
+  <style>
+    .at {background:#F60; color:#FFF;}
+    .box div {width:200px; height:200px; border:1px solid #000; display:none;}
+  </style>
+</head>
+
+<body>
+  <h1>这里是ES6的学习目录</h1>
+  <div id="box" class="box">
+    <input class="at" type="button" value="aaa" />
+    <input type="button" value="bbb" />
+    <input type="button" value="ccc" />
+    <div style="display:block;">111</div>
+    <div>222</div>
+    <div>333</div>
+  </div>
+  <div id="box2" class="box">
+    <input class="at" type="button" value="aaa" />
+    <input type="button" value="bbb" />
+    <input type="button" value="ccc" />
+    <div style="display:block;">111</div>
+    <div>222</div>
+    <div>333</div>
+  </div>
+  <script>
+    window.onload = function () {
+      new Tab('box');
+      let at = new AutoTab('box2');
+      // document.onclick = function () {
+      //   at.next();
+      // }
+    };
+  </script>
+</body>
+</html>
