@@ -70,15 +70,40 @@
   <div id="box1"></div>
   <script>
     // 下面演示promise捕获异常
-    let p2 = new promise(function (resolve, reject) {
+    let p2 = new Promise(function (resolve, reject) {
       resolve('OK!!');
     });
     p2.then(function (str) {
       console.log(str);
-      
-    }, function () {
-
+      throw '发生错误了';
+    }, function (arg) {
+      // 这里是promise错误后的回调
+    }).catch(function (e) { // 捕获错误
+      console.log(e);
     });
+
+    // Promise.all([p1,p2,p3...]); 所有的Promise对象都正确了，才走成功，否则，只要有一个错误，就走失败
+    // 下面演示Promise.all方法
+    let pa = Promise.resolve(3); // 生成成功的Promise。参数可以是数组、字符串、promise对象
+    let pb = Promise.reject(5); // 生成失败的Promise
+    Promise.all([true, pa, pb]).then(function (value) {
+      console.log('成功了：', value); // 如果都成功返回，[true, 3, (pb成功的返回值)]
+    }, function (value) {
+      console.log('失败了：', value); // 失败了： 5
+    });
+
+    // Promise.race([p1,p2,p3...]) 返回也是一个promise对象。最先能执行Promise结果的，哪个最快，就用哪个
+    // 下面演示Promise.race方法
+    let p10 = new Promise(function (resolve, reject) {
+      setTimeout(resolve, 500, 'one'); // 最后一个参数是传个resolve的参数
+    });
+    let p20 = new Promise(function (resolve, reject) {
+      setTimeout(resolve, 100, 'two');
+    });
+    Promise.race([p10, p20]).then(function (value) {
+      console.log('最快返回成功后的值：', value);
+    });
+
   </script>
 </body>
 </html>
