@@ -191,6 +191,9 @@
     <div>222</div>
     <div>333</div>
   </div>
+  <div id="div1" class="b">这里是一个块</div>
+  <div class="b">二二二</div>
+  <div class="b">第三个块</div>
   <script>
     window.onload = function () {
       new Tab('box');
@@ -198,6 +201,27 @@
       // document.onclick = function () {
       //   at.next();
       // }
+
+      
+      //let doc = Array.from(document.querySelectorAll('*')); // 所有的节点
+      let h1 = Array.from(document.querySelectorAll('h1')); // 返回一个数组，数组的每一个元素是一个document对象
+      console.log(h1[0].innerHTML);
+      let div1 = document.querySelector('#div1'); // 获取document的另一种方式
+      console.log(div1);
+      let blocks = Array.from(document.querySelectorAll('.b'));
+      console.log(blocks[2].innerHTML);
+
+
+      let o1 = {};
+      Object.assign(o1, {'origin':{'b':'bb'}});
+      console.log(o1);
+      let o2 = {'name':'海', 'number':'A110'};
+      let o3 = {'name':'雄', 'age':33};
+      let o4 = {'see':'kan hai', 'job':'programmer'};
+      Object.assign(o2, o3, o4); // Object.assign 类似对象的深拷贝，就是把后面的所有对象都合并入第一个对象，如果有key相同的，以后面的为准
+      console.log('o2:', o2);
+      console.log('o3:', o3);
+      console.log('o4:', o4);
     };
   </script>
 </body>
