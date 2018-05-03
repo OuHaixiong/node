@@ -21,7 +21,7 @@ console.log(cache); // { 'foo/bar': 2 }
 var joinPath = path.join('foo/', '/baz/', '..//bar'); // 将多个路径拼接为标准路径
 console.log(joinPath); // foo/bar
 
-var extnamePath = path.extname('foo/bar.js'); // 获取文件路径中的扩展名
+var extnamePath = path.extname('foo/bar.js'); // 获取文件路径中的扩展名。 path.dirname('xxx') 返回文件路径中的目录 
 console.log(extnamePath); // .js
 
 
